@@ -6,14 +6,13 @@
     xmlns:local="clr-namespace:FlashCard"
     Shell.FlyoutBehavior="Disabled"
     Title="FlashCard">
-
     
     <TabBar>
         <Tab Title="Home">
             <ShellContent Title="Home" ContentTemplate="{DataTemplate local:MainPage}" Route="MainPage" />
         </Tab>
         <Tab Title="Layout">
-            <ShellContent Title="Layout" ContentTemplate="{DataTemplate local:Layout}" Route="Layout" />
+            <ShellContent Title="Layout" ContentTemplate="{DataTemplate local:AddCardPage}" Route="AddCardPage" />
         </Tab>
     </TabBar>
 

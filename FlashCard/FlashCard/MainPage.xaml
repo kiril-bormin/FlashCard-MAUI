@@ -4,67 +4,39 @@
              x:Class="FlashCard.MainPage">
 
     <ScrollView>
-        <VerticalStackLayout>
-            <FlexLayout Margin="0,20,0,10" JustifyContent="SpaceAround">
-
-                <!-- Oeil gauche -->
-                <BoxView HeightRequest="100" WidthRequest="140" Color="Red"  />
-
-                <!-- Oeil droit -->
-                <Label Text="RIGHT EYE" TextColor="Green" WidthRequest="150" HeightRequest="100"
-                 VerticalTextAlignment="Center" HorizontalTextAlignment="Center"
-                 BackgroundColor="White" />
-            </FlexLayout>
-            <Grid RowSpacing="5" ColumnSpacing="5" Margin="3,0,3,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="50" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <!-- Dents du haut -->
-                <BoxView Color="LightGray" Grid.Row="0" Grid.Column="0" />
-                <BoxView Color="LightGray" Grid.Row="0" Grid.Column="1" />
-                <BoxView Color="LightGray" Grid.Row="0" Grid.Column="2" />
-                <BoxView Color="LightGray" Grid.Row="0" Grid.Column="3" />
-                <BoxView Color="LightGray" Grid.Row="0" Grid.Column="4" />
-                <BoxView Color="LightGray" Grid.Row="0" Grid.Column="5" />
-                <BoxView Color="LightGray" Grid.Row="0" Grid.Column="6" />
-                <!-- Dents du bas -->
-                <BoxView Color="LightGray" Grid.Row="1" />
-                <BoxView Color="LightGray" Grid.Row="1" Grid.Column="1" />
-                <BoxView Color="LightGray" Grid.Row="1" Grid.Column="2" />
-
-                <!-- dent cassée -->
-                <Grid Grid.Row="1" Grid.Column="3" ColumnSpacing="2">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="50" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <BoxView Color="LightSlateGray" Grid.Row="0" />
-                    <BoxView Color="LightSlateGray" Grid.Row="0" Grid.Column="1" />
+        <Grid RowDefinitions="*, Auto">
+            <VerticalStackLayout Grid.Row="0">
+                <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" Margin="0,0,0,10" RowSpacing="10">
+                    <Label Grid.Row="0" Grid.Column="0" Text="Apprendre :" HorizontalOptions="Center" FontSize="18" />
+                    <Label Grid.Row="0" Grid.Column="1" Text="Appris :" HorizontalOptions="Center" FontSize="18"/>
+                    <!--à remplacer par des variables-->
+                    <Label Grid.Row="1" Grid.Column="0" Text="50" HorizontalOptions="Center" FontSize="18" />
+                    <Label Grid.Row="1" Grid.Column="1" Text="60" HorizontalOptions="Center" FontSize="18"/>
                 </Grid>
+            </VerticalStackLayout>
 
-                <!-- Reste des dents du bas -->
-                <BoxView Color="LightGray" Grid.Row="1" Grid.Column="4" />
-                <BoxView Color="LightGray" Grid.Row="1" Grid.Column="5" />
-                <BoxView Color="LightGray" Grid.Row="1" Grid.Column="6" />
+            <Grid Grid.Row="1" 
+          ColumnDefinitions="*,*" 
+          Margin="0,0,0,20" 
+          ColumnSpacing="10">
+                <Button Text="Apprendre"
+                Grid.Column="0"
+                HorizontalOptions="Center"
+                Clicked="AddCardButton"
+                BackgroundColor="White"
+                TextColor="Black"
+                Padding="15"/>
 
+                <Button Text="+"
+                Grid.Column="1"
+                HorizontalOptions="Center"
+                Clicked="AddCardButton" 
+                BackgroundColor="White"
+                TextColor="Black"/>
             </Grid>
-            <Button Text="Cliquez-moi" Clicked="OnButtonClicked" x:Name="btnClickMe" />
 
-        </VerticalStackLayout>
+        </Grid>
+
     </ScrollView>
 
 </ContentPage>

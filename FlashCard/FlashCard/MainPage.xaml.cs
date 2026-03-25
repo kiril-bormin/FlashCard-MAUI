@@ -7,16 +7,12 @@
         public MainPage()
         {
             InitializeComponent();
+            Routing.RegisterRoute("AddCardPage", typeof(FlashCard.AddCardPage));
         }
 
-        private void OnButtonClicked(object sender, EventArgs e)
+        private async void AddCardButton(object sender, EventArgs e)
         {
-            // Accès au bouton via sender
-            Button button = (Button)sender;
-            button.Text = "Cliqué !";
-
-            // Ou via x:Name
-            btnClickMe.BackgroundColor = Colors.Green;
+            await Shell.Current.GoToAsync("AddCardPage");
         }
     }
 
