@@ -22,7 +22,7 @@
                 <Button Text="Apprendre"
                 Grid.Column="0"
                 HorizontalOptions="Center"
-                Clicked="AddCardButton"
+                Clicked="OnDecksClicked"
                 BackgroundColor="White"
                 TextColor="Black"
                 Padding="15"/>
