@@ -40,7 +40,7 @@ namespace FlashCard.Services
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Error loading: {ex.Message}");
-                return new List<Deck>();
+                return new List<Deck>(); // retourne une liste vide si n'a pas réussi de charger les données depuis le fichier
             }
         }
 
