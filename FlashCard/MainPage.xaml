@@ -30,7 +30,7 @@
                 <Button Text="+"
                 Grid.Column="1"
                 HorizontalOptions="Center"
-                Clicked="AddCardButton" 
+                Clicked="OnDecksClicked" 
                 BackgroundColor="White"
                 TextColor="Black"/>
             </Grid>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FlashCard.Models
 {
-    public class Deck
+    public class Deck // définit le modèle d'une deck
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;

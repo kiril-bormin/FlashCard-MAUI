@@ -14,7 +14,7 @@ namespace FlashCard.Services
 
         public JsonDataService()
         {
-            // Path to store the JSON file in app data
+            // On récupère le chemin d'accès au fichier de la db
             _filePath = Path.Combine(
                 FileSystem.AppDataDirectory,
                 "decks.json"
@@ -25,13 +25,16 @@ namespace FlashCard.Services
         {
             try
             {
-                if (!File.Exists(_filePath))
+                if (!File.Exists(_filePath)) // Si le fichier n'existe pas encore, on renvoi la liste vide
                 {
                     return new List<Deck>();
                 }
 
-                string json = await File.ReadAllTextAsync(_filePath);
-                List<Deck>? decks = JsonSerializer.Deserialize<List<Deck>>(json);
+                string json = await File.ReadAllTextAsync(_filePath); // on lit le contenu du fichier de manière asynchrone
+                List<Deck>? decks = JsonSerializer.Deserialize<List<Deck>>(json); // ? Signifie que la liste peut être nulle.
+                                                                                  // Methode Deserialize fait que chaque bloc {} dans le fichier deck.json
+                                                                                  // devient un objet Deck dans la RAM d'appareil
+               
                 return decks ?? new List<Deck>();
             }
             catch (Exception ex)
@@ -41,16 +44,18 @@ namespace FlashCard.Services
             }
         }
 
-        public async Task SaveDecksAsync(List<Deck> decks)
+        public async Task SaveDecksAsync(List<Deck> decks) //reçois la liste des decks en paramètres
         {
             try
             {
-                JsonSerializerOptions options = new JsonSerializerOptions
+                JsonSerializerOptions options = new JsonSerializerOptions //on crée objet "options" de type Json..., dans lequel on change un paramètre
                 {
-                    WriteIndented = true
+                    WriteIndented = true //ajoute des retours à la ligne pour le meuilleur affichage
                 };
-                string json = JsonSerializer.Serialize(decks, options);
-                await File.WriteAllTextAsync(_filePath, json);
+                string json = JsonSerializer.Serialize(decks, options); // ça transforme chaque objet Deck de la lise en texte json,
+                                                                        // et ça stock le résultat dans la variable json
+                await File.WriteAllTextAsync(_filePath, json); // ça prend tout le json crée, et l'enregistre dans le fichier à _filePath (si le fichier existe, il le met à jour)
+                   
             }
             catch (Exception ex)
             {
