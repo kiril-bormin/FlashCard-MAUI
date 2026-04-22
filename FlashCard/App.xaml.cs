@@ -4,9 +4,9 @@
     {
         public App()
         {
-            InitializeComponent();
+            InitializeComponent(); // cette méthode fusionne le c# et xaml 
 
-            MainPage = new AppShell();
+            MainPage = new AppShell(); // AppShell gère la hiérarchie des pages 
         }
     }
 }
