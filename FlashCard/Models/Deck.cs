@@ -17,6 +17,7 @@ namespace FlashCard.Models
         {
             CreatedDate = DateTime.Now;
         }
+        public List<Card> Cards { get; set; } = new List<Card>();
 
         public override string ToString()
         {

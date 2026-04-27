@@ -26,6 +26,7 @@ namespace FlashCard
                 // Initialize fields
                 NameEntry.Text = deck.Name;
                 CardCountLabel.Text = _cardCount.ToString();
+                RefreshCards();
             }
 
             if (query.TryGetValue("dataService", out object? serviceObj) && serviceObj is JsonDataService service)
@@ -37,6 +38,12 @@ namespace FlashCard
             {
                 _decks = decks;
             }
+        }
+
+        private void RefreshCards()
+        {
+            CardsCollectionView.ItemsSource = null;
+            CardsCollectionView.ItemsSource = _deck?.Cards;
         }
 
         private void OnIncrementClicked(object sender, EventArgs e)
@@ -53,14 +60,42 @@ namespace FlashCard
                 CardCountLabel.Text = _cardCount.ToString();
             }
         }
+        private async void OnAddCardClicked(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(FrontEntry.Text) || string.IsNullOrWhiteSpace(BackEntry.Text))
+            {
+                await DisplayAlert("Erreur", "Veuillez remplir le recto et le verso", "OK");
+                return;
+            }
 
+            if (_deck.Cards == null) _deck.Cards = new List<Card>();
+
+            _deck.Cards.Add(new Card
+            {
+                Front = FrontEntry.Text.Trim(),
+                Back = BackEntry.Text.Trim()
+            });
+
+            _cardCount = _deck.Cards.Count;
+            CardCountLabel.Text = _cardCount.ToString();
+            _deck.CardCount = _cardCount;
+
+            await _dataService.SaveDecksAsync(_decks);
+
+            FrontEntry.Text = string.Empty;
+            BackEntry.Text = string.Empty;
+
+            RefreshCards();
+
+            await DisplayAlert("Succès", "Carte ajoutée au deck !", "OK");
+        }
         private async void OnSaveClicked(object sender, EventArgs e)
         {
             string? newName = NameEntry.Text?.Trim();
 
             if (string.IsNullOrWhiteSpace(newName))
             {
-                await DisplayAlert("Erreur", "Le nom ne peut pas �tre vide", "OK");
+                await DisplayAlert("Erreur", "Le nom ne peut pas �tre vide", "OK");
                 return;
             }
 

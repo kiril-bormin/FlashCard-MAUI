@@ -25,7 +25,7 @@ namespace FlashCard
                 _nextId = _decks.Max(d => d.Id) + 1;
             }
             RefreshView();
-            UpdateInfo($"Chargé: {_decks.Count} deck(s)");
+            UpdateInfo($"Chargï¿½: {_decks.Count} deck(s)");
         }
 
         private void RefreshView()
@@ -39,7 +39,7 @@ namespace FlashCard
             InfoLabel.Text = $"{DateTime.Now:HH:mm:ss} - {message}";
         }
 
-        // --- NOUVELLES MÉTHODES À AJOUTER ---
+        // --- NOUVELLES Mï¿½THODES ï¿½ AJOUTER ---
 
         private async void OnAddDeckClicked(object sender, EventArgs e)
         {
@@ -52,14 +52,14 @@ namespace FlashCard
 
             NewDeckEntry.Text = string.Empty;
             RefreshView();
-            UpdateInfo($"Ajouté: {name}");
+            UpdateInfo($"Ajoutï¿½: {name}");
         }
 
         private async void OnSaveClicked(object sender, EventArgs e)
         {
             await _dataService.SaveDecksAsync(_decks);
-            RefreshView(); // Force le rafraîchissement pour repasser en mode lecture
-            UpdateInfo("Modifications enregistrées");
+            RefreshView(); // Force le rafraï¿½chissement pour repasser en mode lecture
+            UpdateInfo("Modifications enregistrï¿½es");
         }
 
         private async void OnDeleteDeckClicked(object sender, EventArgs e)
@@ -84,10 +84,10 @@ namespace FlashCard
             await _dataService.SaveDecksAsync(_decks);
 
             RefreshView();
-            UpdateInfo($"Supprimé: {deck.Name}");
+            UpdateInfo($"Supprimï¿½: {deck.Name}");
         }
 
-        // --- MÉTHODES D'AFFICHAGE DÉJÀ PRÉSENTES ---
+        // --- Mï¿½THODES D'AFFICHAGE Dï¿½Jï¿½ PRï¿½SENTES ---
 
         private void OnEditDeckInlineClicked(object sender, EventArgs e)
         {
@@ -101,6 +101,23 @@ namespace FlashCard
         private void OnCancelEditClicked(object sender, EventArgs e)
         {
             RefreshView();
+        }
+
+        private async void OnDeckTapped(object sender, EventArgs e)
+        {
+            var frame = (Frame)sender;
+            var deck = (Deck)frame.BindingContext;
+
+            if (deck == null) return;
+
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "deck", deck },
+                { "dataService", _dataService },
+                { "decks", _decks }
+            };
+
+            await Shell.Current.GoToAsync(nameof(EditDeckPage), navigationParameter);
         }
 
         protected override void OnAppearing()

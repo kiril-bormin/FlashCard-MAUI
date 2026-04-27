@@ -4,52 +4,54 @@
              x:Class="FlashCard.EditDeckPage"
              Title="Modifier le deck">
 
-    <StackLayout Padding="20" Spacing="15">
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="15">
 
-        <Label Text="Nom du deck"
+            <Label Text="Nom du deck"
                FontSize="16"
                FontAttributes="Bold" />
 
-        <Entry x:Name="NameEntry"
+            <Entry x:Name="NameEntry"
                Placeholder="Nom du deck"
                FontSize="18" />
 
-        <Label Text="Nombre de cartes"
-               FontSize="16"
-               FontAttributes="Bold"
-               Margin="0,20,0,0" />
 
-        <HorizontalStackLayout Spacing="10">
-            <Button Text="-"
-                   Clicked="OnDecrementClicked"
-                   WidthRequest="50"
-                   BackgroundColor="LightGray" />
 
-            <Label x:Name="CardCountLabel"
-                   Text="0"
-                   FontSize="24"
-                   VerticalOptions="Center"
-                   HorizontalOptions="Center"
-                   WidthRequest="60"
-                   HorizontalTextAlignment="Center" />
 
-            <Button Text="+"
-                   Clicked="OnIncrementClicked"
-                   WidthRequest="50"
-                   BackgroundColor="LightGray" />
-        </HorizontalStackLayout>
+            <Label Text="Ajouter une nouvelle carte" FontSize="16" FontAttributes="Bold" Margin="0,20,0,0" />
+            <Entry x:Name="FrontEntry" Placeholder="Question (Recto)" />
+            <Entry x:Name="BackEntry" Placeholder="Réponse (Verso)" />
+            <Button Text="Ajouter cette carte" 
+                Clicked="OnAddCardClicked" 
+                BackgroundColor="#2196F3" 
+                TextColor="White" />
 
-        <Button Text="Sauvegarder"
+            <Label Text="Cartes du deck" FontSize="16" FontAttributes="Bold" Margin="0,20,0,0" />
+            <CollectionView x:Name="CardsCollectionView">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="0,5" Padding="10" BorderColor="LightGray">
+                            <VerticalStackLayout>
+                                <Label Text="{Binding Front}" FontAttributes="Bold" />
+                                <Label Text="{Binding Back}" TextColor="Gray" />
+                            </VerticalStackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button Text="Sauvegarder"
                Clicked="OnSaveClicked"
                BackgroundColor="#4CAF50"
                TextColor="White"
                Margin="0,30,0,0" />
 
-        <Button Text="Annuler"
+            <Button Text="Annuler"
                Clicked="OnCancelClicked"
                BackgroundColor="Gray"
                TextColor="White" />
 
-    </StackLayout>
+        </StackLayout>
+    </ScrollView>
 
 </ContentPage>

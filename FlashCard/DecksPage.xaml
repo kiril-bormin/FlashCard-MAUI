@@ -30,6 +30,9 @@
                BorderColor="LightGray"
                CornerRadius="8"
                HasShadow="True">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnDeckTapped" CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
                         <Grid ColumnDefinitions="*,Auto,Auto,Auto">
 
                             <!-- Deck info (normal mode) -->
