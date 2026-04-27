@@ -15,9 +15,6 @@
                Placeholder="Nom du deck"
                FontSize="18" />
 
-
-
-
             <Label Text="Ajouter une nouvelle carte" FontSize="16" FontAttributes="Bold" Margin="0,20,0,0" />
             <Entry x:Name="FrontEntry" Placeholder="Question (Recto)" />
             <Entry x:Name="BackEntry" Placeholder="Réponse (Verso)" />
