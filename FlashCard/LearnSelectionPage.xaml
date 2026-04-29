@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="FlashCard.LearnSelectionPage"
-             Title="Choisir un Deck">
+             Title="Choisir le deck à apprendre">
 
     <Grid Padding="20">
         <CollectionView x:Name="DecksCollectionView"
