@@ -7,17 +7,19 @@
     <Grid RowDefinitions="Auto,*,Auto" Padding="10">
 
         <!-- Header with add button -->
-        <HorizontalStackLayout Grid.Row="0"
-                              Spacing="10"
-                              Margin="0,0,0,10">
+        <Grid Grid.Row="0"
+              ColumnDefinitions="*, Auto"
+              ColumnSpacing="10"
+              Margin="0,0,0,10">
             <Entry x:Name="NewDeckEntry"
-                   Placeholder="Nom du nouveau deck"
-                   HorizontalOptions="FillAndExpand" />
-            <Button Text="Ajouter"
+                   Grid.Column="0"
+                   Placeholder="Nom du nouveau deck" />
+            <Button Grid.Column="1"
+                    Text="Ajouter"
                     Clicked="OnAddDeckClicked"
                     BackgroundColor="#2196F3"
                     TextColor="White" />
-        </HorizontalStackLayout>
+        </Grid>
 
         <!-- Decks list -->
         <CollectionView Grid.Row="1"
@@ -73,13 +75,6 @@
                            CommandParameter="{Binding .}" />
                             </HorizontalStackLayout>
 
-                            <!-- Add Card button -->
-                            <Button Grid.Column="1"
-                                   Text="➕"
-                                   FontSize="20"
-                                   BackgroundColor="Transparent"
-                                   Clicked="OnAddCardClicked"
-                                   CommandParameter="{Binding .}" />
 
                             <!-- Edit button -->
                             <Button Grid.Column="2"

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FlashCard.LearnPage"
+             Title="Apprendre">
+
+    <Grid RowDefinitions="Auto, *, Auto" Padding="20" RowSpacing="20">
+        <!-- Header -->
+        <Label x:Name="DeckNameLabel" 
+               Grid.Row="0" 
+               Text="Nom du Deck" 
+               FontSize="24" 
+               FontAttributes="Bold" 
+               HorizontalOptions="Center" />
+
+        <!-- Card Area -->
+        <Frame Grid.Row="1" 
+               x:Name="CardFrame"
+               Padding="20" 
+               CornerRadius="15" 
+               HasShadow="True" 
+               BackgroundColor="White"
+               VerticalOptions="Center"
+               HeightRequest="300">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnCardTapped" />
+            </Frame.GestureRecognizers>
+            
+            <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                <Label x:Name="CardContentLabel" 
+                       Text="Contenu de la carte" 
+                       FontSize="28" 
+                       HorizontalTextAlignment="Center" />
+                <Label x:Name="SideIndicatorLabel" 
+                       Text="(Appuyez pour voir le verso)" 
+                       FontSize="12" 
+                       TextColor="Gray" 
+                       HorizontalOptions="Center" 
+                       Margin="0,20,0,0"/>
+            </VerticalStackLayout>
+        </Frame>
+
+        <!-- Bottom Controls -->
+        <VerticalStackLayout Grid.Row="2" Spacing="20">
+            <Label x:Name="ProgressLabel" 
+                   Text="Carte 1 / 10" 
+                   HorizontalOptions="Center" />
+            
+            <Grid ColumnDefinitions="*, *" ColumnSpacing="20" x:Name="ActionButtons" IsVisible="False">
+                <Button Grid.Column="0" 
+                        Text="Faux" 
+                        BackgroundColor="#FF5252" 
+                        TextColor="White" 
+                        Padding="15"
+                        Clicked="OnWrongClicked" />
+                
+                <Button Grid.Column="1" 
+                        Text="Juste" 
+                        BackgroundColor="#4CAF50" 
+                        TextColor="White" 
+                        Padding="15"
+                        Clicked="OnCorrectClicked" />
+            </Grid>
+            
+            <Label Text="Appuyez sur la carte pour voir la réponse" 
+                   x:Name="InstructionLabel"
+                   HorizontalOptions="Center" 
+                   TextColor="Gray" 
+                   FontSize="14" />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

@@ -119,7 +119,7 @@ namespace FlashCard
 
             await Shell.Current.GoToAsync(nameof(EditDeckPage), navigationParameter);
         }
-
+    
 
         protected override void OnAppearing()
         {

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FlashCard.LearnSelectionPage"
+             Title="Choisir un Deck">
+
+    <Grid Padding="20">
+        <CollectionView x:Name="DecksCollectionView"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Margin="0,5" Padding="15" CornerRadius="10" HasShadow="True">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnDeckSelected" CommandParameter="{Binding .}" />
+                        </Frame.GestureRecognizers>
+                        <StackLayout>
+                            <Label Text="{Binding Name}" FontSize="20" FontAttributes="Bold" />
+                            <Label Text="{Binding CardCount, StringFormat='{0} cartes'}" FontSize="14" TextColor="Gray" />
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            
+            <CollectionView.EmptyView>
+                <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                    <Label Text="Aucun deck disponible." HorizontalOptions="Center" />
+                    <Label Text="Créez d'abord un deck pour apprendre." FontSize="14" TextColor="Gray" HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+        </CollectionView>
+    </Grid>
+</ContentPage>
