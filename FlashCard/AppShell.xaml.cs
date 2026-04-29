@@ -7,6 +7,7 @@
             InitializeComponent();
 
             Routing.RegisterRoute(nameof(EditDeckPage), typeof(EditDeckPage));
+            Routing.RegisterRoute(nameof(AddCardPage), typeof(AddCardPage));
         }
     }
 }

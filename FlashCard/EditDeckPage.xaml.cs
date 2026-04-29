@@ -9,6 +9,7 @@ namespace FlashCard
         private int _cardCount;
         private JsonDataService _dataService;
         private List<Deck> _decks;
+        private bool _isInitializing;
 
         public EditDeckPage()
         {
@@ -23,9 +24,11 @@ namespace FlashCard
                 _deck = deck;
                 _cardCount = deck.CardCount;
 
+                _isInitializing = true;
                 // Initialize fields
                 NameEntry.Text = deck.Name;
-                CardCountLabel.Text = _cardCount.ToString();
+                _isInitializing = false;
+
                 RefreshCards();
             }
 
@@ -46,20 +49,6 @@ namespace FlashCard
             CardsCollectionView.ItemsSource = _deck?.Cards;
         }
 
-        private void OnIncrementClicked(object sender, EventArgs e)
-        {
-            _cardCount++;
-            CardCountLabel.Text = _cardCount.ToString();
-        }
-
-        private void OnDecrementClicked(object sender, EventArgs e)
-        {
-            if (_cardCount > 0)
-            {
-                _cardCount--;
-                CardCountLabel.Text = _cardCount.ToString();
-            }
-        }
         private async void OnAddCardClicked(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(FrontEntry.Text) || string.IsNullOrWhiteSpace(BackEntry.Text))
@@ -77,7 +66,6 @@ namespace FlashCard
             });
 
             _cardCount = _deck.Cards.Count;
-            CardCountLabel.Text = _cardCount.ToString();
             _deck.CardCount = _cardCount;
 
             await _dataService.SaveDecksAsync(_decks);
@@ -89,29 +77,14 @@ namespace FlashCard
 
             await DisplayAlert("Succès", "Carte ajoutée au deck !", "OK");
         }
-        private async void OnSaveClicked(object sender, EventArgs e)
-        {
-            string? newName = NameEntry.Text?.Trim();
 
-            if (string.IsNullOrWhiteSpace(newName))
+        private async void OnNameTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!_isInitializing && _deck != null && _dataService != null)
             {
-                await DisplayAlert("Erreur", "Le nom ne peut pas �tre vide", "OK");
-                return;
+                _deck.Name = e.NewTextValue;
+                await _dataService.SaveDecksAsync(_decks);
             }
-
-            // Update deck
-            _deck.Name = newName;
-            _deck.CardCount = _cardCount;
-
-            // Save immediately to JSON
-            await _dataService.SaveDecksAsync(_decks);
-
-            await Shell.Current.GoToAsync("..");
-        }
-
-        private async void OnCancelClicked(object sender, EventArgs e)
-        {
-            await Shell.Current.GoToAsync("..");
         }
     }
 }

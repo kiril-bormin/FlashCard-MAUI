@@ -73,8 +73,16 @@
                            CommandParameter="{Binding .}" />
                             </HorizontalStackLayout>
 
-                            <!-- Edit button -->
+                            <!-- Add Card button -->
                             <Button Grid.Column="1"
+                                   Text="➕"
+                                   FontSize="20"
+                                   BackgroundColor="Transparent"
+                                   Clicked="OnAddCardClicked"
+                                   CommandParameter="{Binding .}" />
+
+                            <!-- Edit button -->
+                            <Button Grid.Column="2"
                        Text="✏️"
                        FontSize="20"
                        BackgroundColor="Transparent"
@@ -83,7 +91,7 @@
                        x:Name="EditButton" />
 
                             <!-- Delete button -->
-                            <Button Grid.Column="2"
+                            <Button Grid.Column="3"
                        Text="🗑️"
                        FontSize="20"
                        BackgroundColor="Transparent"

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FlashCard.AddCardPage"
+             Title="Ajouter une carte">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="30">
+            
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Question" 
+                       FontSize="16" 
+                       TextColor="Black" />
+                <Frame BackgroundColor="#E0E0E0" 
+                       CornerRadius="5" 
+                       HasShadow="False" 
+                       Padding="5"
+                       BorderColor="Transparent">
+                    <Editor x:Name="QuestionEditor"
+                            HeightRequest="100"
+                            AutoSize="TextChanges" />
+                </Frame>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="5">
+                <Label Text="Réponse" 
+                       FontSize="16" 
+                       TextColor="Black" />
+                <Frame BackgroundColor="#E0E0E0" 
+                       CornerRadius="5" 
+                       HasShadow="False" 
+                       Padding="5"
+                       BorderColor="Transparent">
+                    <Editor x:Name="AnswerEditor"
+                            HeightRequest="100"
+                            AutoSize="TextChanges" />
+                </Frame>
+            </VerticalStackLayout>
+
+            <Button Text="Sauvegarder"
+                    
+                    Clicked="OnSaveClicked"
+                    BackgroundColor="#D3D3D3"
+                    TextColor="Black"
+                    CornerRadius="0"
+                    HeightRequest="60"
+                    FontSize="18"
+                    Margin="0,40,0,0" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

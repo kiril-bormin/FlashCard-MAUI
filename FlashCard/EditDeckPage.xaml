@@ -13,7 +13,8 @@
 
             <Entry x:Name="NameEntry"
                Placeholder="Nom du deck"
-               FontSize="18" />
+               FontSize="18"
+               TextChanged="OnNameTextChanged" />
 
             <Label Text="Ajouter une nouvelle carte" FontSize="16" FontAttributes="Bold" Margin="0,20,0,0" />
             <Entry x:Name="FrontEntry" Placeholder="Question (Recto)" />
@@ -36,17 +37,6 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
-            <Button Text="Sauvegarder"
-               Clicked="OnSaveClicked"
-               BackgroundColor="#4CAF50"
-               TextColor="White"
-               Margin="0,30,0,0" />
-
-            <Button Text="Annuler"
-               Clicked="OnCancelClicked"
-               BackgroundColor="Gray"
-               TextColor="White" />
 
         </StackLayout>
     </ScrollView>

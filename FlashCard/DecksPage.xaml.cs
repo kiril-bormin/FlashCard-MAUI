@@ -120,6 +120,23 @@ namespace FlashCard
             await Shell.Current.GoToAsync(nameof(EditDeckPage), navigationParameter);
         }
 
+        private async void OnAddCardClicked(object sender, EventArgs e)
+        {
+            var button = (Button)sender;
+            var deck = (Deck)button.CommandParameter;
+
+            if (deck == null) return;
+
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "deck", deck },
+                { "dataService", _dataService },
+                { "decks", _decks }
+            };
+
+            await Shell.Current.GoToAsync(nameof(AddCardPage), navigationParameter);
+        }
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
