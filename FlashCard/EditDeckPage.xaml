@@ -16,13 +16,10 @@
                FontSize="18"
                TextChanged="OnNameTextChanged" />
 
-            <Label Text="Ajouter une nouvelle carte" FontSize="16" FontAttributes="Bold" Margin="0,20,0,0" />
-            <Entry x:Name="FrontEntry" Placeholder="Question (Recto)" />
-            <Entry x:Name="BackEntry" Placeholder="Réponse (Verso)" />
-            <Button Text="Ajouter cette carte" 
-                Clicked="OnAddCardClicked" 
-                BackgroundColor="#2196F3" 
-                TextColor="White" />
+            <Button 
+            Text="Ajouter une nouvelle carte"
+            FontSize="20"
+            Clicked="OnAddCardClicked" />
 
             <Label Text="Cartes du deck" FontSize="16" FontAttributes="Bold" Margin="0,20,0,0" />
             <CollectionView x:Name="CardsCollectionView">

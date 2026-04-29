@@ -51,31 +51,16 @@ namespace FlashCard
 
         private async void OnAddCardClicked(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(FrontEntry.Text) || string.IsNullOrWhiteSpace(BackEntry.Text))
+            if (_deck == null) return;
+
+            var navigationParameter = new Dictionary<string, object>
             {
-                await DisplayAlert("Erreur", "Veuillez remplir le recto et le verso", "OK");
-                return;
-            }
+                { "deck", _deck },
+                { "dataService", _dataService },
+                { "decks", _decks }
+            };
 
-            if (_deck.Cards == null) _deck.Cards = new List<Card>();
-
-            _deck.Cards.Add(new Card
-            {
-                Front = FrontEntry.Text.Trim(),
-                Back = BackEntry.Text.Trim()
-            });
-
-            _cardCount = _deck.Cards.Count;
-            _deck.CardCount = _cardCount;
-
-            await _dataService.SaveDecksAsync(_decks);
-
-            FrontEntry.Text = string.Empty;
-            BackEntry.Text = string.Empty;
-
-            RefreshCards();
-
-            await DisplayAlert("Succès", "Carte ajoutée au deck !", "OK");
+            await Shell.Current.GoToAsync(nameof(AddCardPage), navigationParameter);
         }
 
         private async void OnNameTextChanged(object sender, TextChangedEventArgs e)
