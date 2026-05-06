@@ -16,23 +16,34 @@
             </VerticalStackLayout>
 
             <Grid Grid.Row="1" 
-          ColumnDefinitions="*,*" 
-          Margin="0,0,0,20" 
-          ColumnSpacing="10">
+          ColumnDefinitions="Auto,Auto" 
+          Margin="0,0,0,40" 
+          HorizontalOptions="Center"
+          ColumnSpacing="40">
                 <Button Text="Apprendre"
                 Grid.Column="0"
                 HorizontalOptions="Center"
                 Clicked="OnLearnClicked"
-                BackgroundColor="White"
-                TextColor="Black"
-                Padding="15"/>
+                BackgroundColor="#2792c0"
+                TextColor="White"
+                FontSize="18"
+                CornerRadius="5"
+                WidthRequest="200"
+                Padding="40, 15"
+                        />
 
-                <Button Text="+"
+                <Button Text="Decks"
                 Grid.Column="1"
                 HorizontalOptions="Center"
                 Clicked="OnDecksClicked" 
-                BackgroundColor="White"
-                TextColor="Black"/>
+                BackgroundColor="#2792c0"
+                TextColor="White"
+                FontSize="18"
+                CornerRadius="5"
+                        
+                HeightRequest="60"
+                WidthRequest="80"
+                 />
             </Grid>
 
         </Grid>
