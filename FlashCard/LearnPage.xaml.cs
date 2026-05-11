@@ -106,11 +106,13 @@ namespace FlashCard
             InstructionLabel.IsVisible = true;
         }
 
-        private void OnCardTapped(object sender, EventArgs e)
+        private async void OnCardTapped(object sender, EventArgs e)
         {
+            await CardFrame.RotateYTo(90, 250, Easing.CubicIn);
+
             _isShowingBack = !_isShowingBack;
             var card = _shuffledCards[_currentIndex];
-            
+
             if (_isShowingBack)
             {
                 CardContentLabel.Text = card.Back;
@@ -123,6 +125,10 @@ namespace FlashCard
                 CardContentLabel.Text = card.Front;
                 SideIndicatorLabel.Text = "(Appuyez pour voir le verso)";
             }
+
+            CardFrame.RotationY = -90;
+
+            await CardFrame.RotateYTo(0, 250, Easing.CubicOut);
         }
 
         private async void OnCorrectClicked(object sender, EventArgs e)
@@ -155,5 +161,6 @@ namespace FlashCard
                 await Shell.Current.GoToAsync("LearnResultPage", navigationParameter);
             }
         }
+
     }
 }
