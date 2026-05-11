@@ -63,6 +63,28 @@ namespace FlashCard
             await Shell.Current.GoToAsync(nameof(AddCardPage), navigationParameter);
         }
 
+        private async void OnDeleteCardClicked(object sender, EventArgs e)
+        {
+            Button? button = sender as Button;
+            Card? card = button?.CommandParameter as Card;
+
+            if (card == null || _deck == null) return;
+
+            bool confirm = await DisplayAlert(
+                "Confirmation",
+                $"Supprimer cette carte ?\n\nRecto : {card.Front}\nVerso : {card.Back}",
+                "Supprimer",
+                "Annuler"
+            );
+
+            if (!confirm) return;
+
+            _deck.Cards.Remove(card);
+            _deck.CardCount = _deck.Cards.Count;
+            await _dataService.SaveDecksAsync(_decks);
+            RefreshCards();
+        }
+
         private async void OnNameTextChanged(object sender, TextChangedEventArgs e)
         {
             if (!_isInitializing && _deck != null && _dataService != null)
