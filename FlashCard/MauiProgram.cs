@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
+using Plugin.Maui.Audio;
 
 namespace FlashCard
 {
@@ -7,6 +8,9 @@ namespace FlashCard
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+            
+            builder.Services.AddSingleton(AudioManager.Current);
+
             builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>

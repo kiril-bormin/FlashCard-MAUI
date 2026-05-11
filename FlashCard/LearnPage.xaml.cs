@@ -1,4 +1,6 @@
 using FlashCard.Models;
+using Microsoft.Maui.Devices.Sensors;
+using Plugin.Maui.Audio;
 
 namespace FlashCard
 {
@@ -20,10 +22,64 @@ namespace FlashCard
         private int _currentIndex = 0;
         private bool _isShowingBack = false;
         private int _correctCount = 0;
+        private DateTime _lastShakeTime = DateTime.MinValue;
 
         public LearnPage()
         {
             InitializeComponent();
+
+            // Vérifier si l'accéléromètre est disponible
+            if (Accelerometer.Default.IsSupported)
+            {
+                Accelerometer.Default.ShakeDetected += Accelerometer_ShakeDetected;
+
+                // Démarrer la surveillance
+                if (!Accelerometer.Default.IsMonitoring)
+                {
+                    Accelerometer.Default.Start(SensorSpeed.UI);
+                }
+            }
+        }
+
+        private async void Accelerometer_ShakeDetected(object sender, EventArgs e)
+        {
+            // Cooldown de 2 secondes pour éviter les déclenchements multiples
+            if ((DateTime.Now - _lastShakeTime).TotalSeconds < 2)
+                return;
+            _lastShakeTime = DateTime.Now;
+
+            // Jouer le son de skip en arrière-plan
+            try
+            {
+                var audioPlayer = AudioManager.Current.CreatePlayer(
+                    await FileSystem.OpenAppPackageFileAsync("skip.mp3")
+                );
+                audioPlayer.Play();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Erreur audio : {ex.Message}");
+            }
+
+            // Skip la carte et la marquer comme fausse sur le thread principal
+            MainThread.BeginInvokeOnMainThread(() =>
+            {
+                if (_shuffledCards != null && _currentIndex < _shuffledCards.Count)
+                {
+                    OnWrongClicked(sender, e);
+                }
+            });
+        }
+
+        protected override void OnDisappearing()
+        {
+            if (Accelerometer.Default.IsSupported)
+            {
+                // Arrêter la surveillance et supprimer les gestionnaires d'événements
+                Accelerometer.Default.Stop();
+                Accelerometer.Default.ShakeDetected -= Accelerometer_ShakeDetected;
+            }
+            base.OnDisappearing();
         }
 
         private void StartSession()
