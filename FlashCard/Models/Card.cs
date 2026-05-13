@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +10,6 @@ namespace FlashCard.Models
     {
         public string Front { get; set; } = string.Empty;
         public string Back { get; set; } = string.Empty;
+        public bool IsMastered { get; set; } = false;
     }
 }

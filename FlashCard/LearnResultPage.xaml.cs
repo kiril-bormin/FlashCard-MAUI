@@ -10,6 +10,8 @@ namespace FlashCard
     [QueryProperty(nameof(PerfectCardsCount), "perfectCardsCount")]
     [QueryProperty(nameof(OriginalTotalCount), "originalTotalCount")]
     [QueryProperty(nameof(CurrentDeck), "deck")]
+    [QueryProperty(nameof(Decks), "decks")]
+    [QueryProperty(nameof(DataService), "dataService")]
     public partial class LearnResultPage : ContentPage
     {
         private Deck _currentDeck;
@@ -17,6 +19,20 @@ namespace FlashCard
         {
             get => _currentDeck;
             set => _currentDeck = value;
+        }
+
+        private List<Deck> _decks;
+        public List<Deck> Decks
+        {
+            get => _decks;
+            set => _decks = value;
+        }
+
+        private JsonDataService _dataService;
+        public JsonDataService DataService
+        {
+            get => _dataService;
+            set => _dataService = value;
         }
 
         private int _correct;
@@ -129,7 +145,9 @@ namespace FlashCard
             
             var navigationParameter = new Dictionary<string, object>
             {
-                { "deck", _currentDeck }
+                { "deck", _currentDeck },
+                { "decks", _decks },
+                { "dataService", _dataService }
             };
             
             await Shell.Current.GoToAsync($"../{nameof(LearnPage)}", navigationParameter);

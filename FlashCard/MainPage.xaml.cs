@@ -1,12 +1,39 @@
-﻿namespace FlashCard
+using FlashCard.Services;
+
+namespace FlashCard
 {
     public partial class MainPage : ContentPage
     {
         int count = 0;
+        private JsonDataService _dataService = new JsonDataService();
 
         public MainPage()
         {
             InitializeComponent();
+        }
+
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            
+            var decks = await _dataService.LoadDecksAsync();
+            int toLearn = 0;
+            int mastered = 0;
+
+            foreach (var deck in decks)
+            {
+                if (deck.Cards != null)
+                {
+                    foreach (var card in deck.Cards)
+                    {
+                        if (card.IsMastered) mastered++;
+                        else toLearn++;
+                    }
+                }
+            }
+
+            ToLearnLabel.Text = toLearn.ToString();
+            MasteredLabel.Text = mastered.ToString();
         }
 
         private async void AddCardButton(object sender, EventArgs e)

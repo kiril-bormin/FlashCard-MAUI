@@ -5,6 +5,8 @@ using Plugin.Maui.Audio;
 namespace FlashCard
 {
     [QueryProperty(nameof(CurrentDeck), "deck")]
+    [QueryProperty(nameof(Decks), "decks")]
+    [QueryProperty(nameof(DataService), "dataService")]
     public partial class LearnPage : ContentPage
     {
         private Deck _deck;
@@ -16,6 +18,20 @@ namespace FlashCard
                 _deck = value;
                 StartSession();
             }
+        }
+
+        private List<Deck> _decks;
+        public List<Deck> Decks
+        {
+            get => _decks;
+            set => _decks = value;
+        }
+
+        private JsonDataService _dataService;
+        public JsonDataService DataService
+        {
+            get => _dataService;
+            set => _dataService = value;
         }
 
         private List<Card> _shuffledCards;
@@ -176,6 +192,20 @@ namespace FlashCard
                 var mostDifficultCard = _cardErrors.OrderByDescending(kvp => kvp.Value).FirstOrDefault().Key;
                 int perfectCardsCount = _deck.Cards.Count(c => !_cardErrors.ContainsKey(c) || _cardErrors[c] == 0);
 
+                // Update IsMastered status
+                foreach (var card in _deck.Cards)
+                {
+                    if (!_cardErrors.ContainsKey(card) || _cardErrors[card] == 0)
+                        card.IsMastered = true;
+                    else
+                        card.IsMastered = false;
+                }
+
+                if (_dataService != null && _decks != null)
+                {
+                    await _dataService.SaveDecksAsync(_decks);
+                }
+
                 var navigationParameter = new Dictionary<string, object>
                 {
                     { "correct", _correctCount },
@@ -185,7 +215,9 @@ namespace FlashCard
                     { "mostDifficultCardFront", mostDifficultCard?.Front ?? "Aucune" },
                     { "perfectCardsCount", perfectCardsCount },
                     { "originalTotalCount", _deck.Cards.Count },
-                    { "deck", _deck }
+                    { "deck", _deck },
+                    { "decks", _decks },
+                    { "dataService", _dataService }
                 };
                 await Shell.Current.GoToAsync("LearnResultPage", navigationParameter);
             }

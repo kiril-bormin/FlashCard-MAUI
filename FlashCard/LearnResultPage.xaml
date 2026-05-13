@@ -50,18 +50,18 @@
 
         <Grid ColumnDefinitions="*, *" ColumnSpacing="15" Margin="0, 40, 0, 0">
             <Button Grid.Column="0"
+                    Text="Retour à l'accueil" 
+                    Clicked="OnHomeClicked" 
+                    BackgroundColor="#2196F3" 
+                    TextColor="White" 
+                    Padding="15" />
+            <Button Grid.Column="1"
                     Text="Recommencer" 
                     Clicked="OnRestartClicked" 
                     BackgroundColor="#4CAF50" 
                     TextColor="White" 
                     Padding="15" />
                     
-            <Button Grid.Column="1"
-                    Text="Retour à l'accueil" 
-                    Clicked="OnHomeClicked" 
-                    BackgroundColor="#2196F3" 
-                    TextColor="White" 
-                    Padding="15" />
         </Grid>
     </VerticalStackLayout>
 </ContentPage>

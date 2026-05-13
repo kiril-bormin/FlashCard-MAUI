@@ -6,6 +6,7 @@ namespace FlashCard
     public partial class LearnSelectionPage : ContentPage
     {
         private JsonDataService _dataService;
+        private List<Deck> _decks;
 
         public LearnSelectionPage()
         {
@@ -16,8 +17,8 @@ namespace FlashCard
         protected override async void OnAppearing()
         {
             base.OnAppearing();
-            var decks = await _dataService.LoadDecksAsync();
-            DecksCollectionView.ItemsSource = decks;
+            _decks = await _dataService.LoadDecksAsync();
+            DecksCollectionView.ItemsSource = _decks;
         }
 
         private async void OnDeckSelected(object sender, EventArgs e)
@@ -33,7 +34,9 @@ namespace FlashCard
 
             var navigationParameter = new Dictionary<string, object>
             {
-                { "deck", deck }
+                { "deck", deck },
+                { "decks", _decks },
+                { "dataService", _dataService }
             };
 
             await Shell.Current.GoToAsync("LearnPage", navigationParameter);
