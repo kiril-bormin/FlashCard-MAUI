@@ -166,6 +166,12 @@ namespace FlashCard
             else
             {
                 // Session finished
+                CardContentLabel.Text = "Préparation...";
+                InstructionLabel.IsVisible = false;
+                ActionButtons.IsVisible = false;
+                ProgressLabel.Text = "";
+                SideIndicatorLabel.Text = "";
+
                 TimeSpan timeSpent = DateTime.Now - _sessionStartTime;
                 var mostDifficultCard = _cardErrors.OrderByDescending(kvp => kvp.Value).FirstOrDefault().Key;
                 int perfectCardsCount = _deck.Cards.Count(c => !_cardErrors.ContainsKey(c) || _cardErrors[c] == 0);
@@ -178,7 +184,8 @@ namespace FlashCard
                     { "timeSpent", timeSpent.TotalSeconds },
                     { "mostDifficultCardFront", mostDifficultCard?.Front ?? "Aucune" },
                     { "perfectCardsCount", perfectCardsCount },
-                    { "originalTotalCount", _deck.Cards.Count }
+                    { "originalTotalCount", _deck.Cards.Count },
+                    { "deck", _deck }
                 };
                 await Shell.Current.GoToAsync("LearnResultPage", navigationParameter);
             }

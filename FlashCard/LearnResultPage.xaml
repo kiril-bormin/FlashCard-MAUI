@@ -16,42 +16,52 @@
                TextColor="Gray" 
                HorizontalOptions="Center" />
 
-        <Frame BackgroundColor="#F0F0F0" Padding="30" CornerRadius="20">
+        <Frame BackgroundColor="#F0F0F0" Padding="30" CornerRadius="5">
             <VerticalStackLayout Spacing="15">
-                <Label x:Name="ScoreLabel" 
+                <!--<Label x:Name="ScoreLabel" 
                        Text="8 / 10" 
                        FontSize="48" 
                        FontAttributes="Bold" 
-                       HorizontalOptions="Center" />
+                       HorizontalOptions="Center" />-->
                 <Label x:Name="PercentageLabel" 
                        Text="80%" 
                        FontSize="24" 
                        TextColor="#4CAF50" 
-                       HorizontalOptions="Center" />
-
-                <BoxView HeightRequest="1" Color="LightGray" Margin="0,10,0,10" />
+                       HorizontalOptions="Center"
+                       FontAttributes="Bold"
+                       />
 
                 <Grid ColumnDefinitions="Auto,*" Margin="0,5" ColumnSpacing="10">
-                    <Label Grid.Column="0" Text="⏱ Temps :" FontAttributes="Bold" VerticalOptions="Center" />
+                    <Label Grid.Column="0" Text="Temps :" FontAttributes="Bold" VerticalOptions="Center" />
                     <Label Grid.Column="1" x:Name="TimeSpentLabel" Text="0 min 0 s" HorizontalOptions="End" VerticalOptions="Center" />
                 </Grid>
                 
                 <Grid ColumnDefinitions="Auto,*" Margin="0,5" ColumnSpacing="10">
-                    <Label Grid.Column="0" Text="✅ Sues à 100% :" FontAttributes="Bold" VerticalOptions="Center" />
+                    <Label Grid.Column="0" Text="Cartes connues à 100% :" FontAttributes="Bold" VerticalOptions="Center" />
                     <Label Grid.Column="1" x:Name="PerfectCardsLabel" Text="0 / 0" HorizontalOptions="End" VerticalOptions="Center" />
                 </Grid>
 
                 <Grid ColumnDefinitions="Auto,*" Margin="0,5" ColumnSpacing="10">
-                    <Label Grid.Column="0" Text="🔥 Carte difficile :" FontAttributes="Bold" VerticalOptions="Center" />
+                    <Label Grid.Column="0" Text="Carte la plus difficile :" FontAttributes="Bold" VerticalOptions="Center" />
                     <Label Grid.Column="1" x:Name="DifficultCardLabel" Text="Aucune"  TextColor="Gray" HorizontalOptions="End" HorizontalTextAlignment="End" VerticalOptions="Center" LineBreakMode="TailTruncation" />
                 </Grid>
             </VerticalStackLayout>
         </Frame>
 
-        <Button Text="Retour à l'accueil" 
-                Clicked="OnHomeClicked" 
-                BackgroundColor="#2196F3" 
-                TextColor="White" 
-                Padding="15" />
+        <Grid ColumnDefinitions="*, *" ColumnSpacing="15" Margin="0, 40, 0, 0">
+            <Button Grid.Column="0"
+                    Text="Recommencer" 
+                    Clicked="OnRestartClicked" 
+                    BackgroundColor="#4CAF50" 
+                    TextColor="White" 
+                    Padding="15" />
+                    
+            <Button Grid.Column="1"
+                    Text="Retour à l'accueil" 
+                    Clicked="OnHomeClicked" 
+                    BackgroundColor="#2196F3" 
+                    TextColor="White" 
+                    Padding="15" />
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>

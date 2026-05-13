@@ -1,3 +1,5 @@
+using FlashCard.Models;
+
 namespace FlashCard
 {
     [QueryProperty(nameof(CorrectCount), "correct")]
@@ -7,8 +9,16 @@ namespace FlashCard
     [QueryProperty(nameof(MostDifficultCardFront), "mostDifficultCardFront")]
     [QueryProperty(nameof(PerfectCardsCount), "perfectCardsCount")]
     [QueryProperty(nameof(OriginalTotalCount), "originalTotalCount")]
+    [QueryProperty(nameof(CurrentDeck), "deck")]
     public partial class LearnResultPage : ContentPage
     {
+        private Deck _currentDeck;
+        public Deck CurrentDeck
+        {
+            get => _currentDeck;
+            set => _currentDeck = value;
+        }
+
         private int _correct;
         public int CorrectCount
         {
@@ -95,7 +105,7 @@ namespace FlashCard
         {
             if (_total == 0 || _originalTotalCount == 0) return;
 
-            ScoreLabel.Text = $"{_correct} / {_total}";
+            // ScoreLabel.Text = $"{_correct} / {_total}";
             double memorizationPercentage = (double)_perfectCardsCount / _originalTotalCount * 100;
             PercentageLabel.Text = $"{memorizationPercentage:F0}% de mémorisation";
 
@@ -111,6 +121,18 @@ namespace FlashCard
 
             PerfectCardsLabel.Text = $"{_perfectCardsCount} / {_originalTotalCount}";
             DifficultCardLabel.Text = string.IsNullOrEmpty(_mostDifficultCardFront) ? "Aucune" : _mostDifficultCardFront;
+        }
+
+        private async void OnRestartClicked(object sender, EventArgs e)
+        {
+            if (_currentDeck == null) return;
+            
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "deck", _currentDeck }
+            };
+            
+            await Shell.Current.GoToAsync($"../{nameof(LearnPage)}", navigationParameter);
         }
 
         private async void OnHomeClicked(object sender, EventArgs e)
