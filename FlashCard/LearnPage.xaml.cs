@@ -23,6 +23,8 @@ namespace FlashCard
         private bool _isShowingBack = false;
         private int _correctCount = 0;
         private DateTime _lastShakeTime = DateTime.MinValue;
+        private DateTime _sessionStartTime;
+        private Dictionary<Card, int> _cardErrors = new();
 
         public LearnPage()
         {
@@ -90,6 +92,8 @@ namespace FlashCard
             _shuffledCards = _deck.Cards.OrderBy(x => Guid.NewGuid()).ToList();
             _currentIndex = 0;
             _correctCount = 0;
+            _sessionStartTime = DateTime.Now;
+            _cardErrors.Clear();
             
             ShowCard();
         }
@@ -140,8 +144,13 @@ namespace FlashCard
 
         private async void OnWrongClicked(object sender, EventArgs e)
         {
-            // Ajouter la carte actuelle à la fin de la liste pour la revoir
             var currentCard = _shuffledCards[_currentIndex];
+            
+            if (!_cardErrors.ContainsKey(currentCard))
+                _cardErrors[currentCard] = 0;
+            _cardErrors[currentCard]++;
+
+            // Ajouter la carte actuelle à la fin de la liste pour la revoir
             _shuffledCards.Add(currentCard);
 
             await NextCard();
@@ -157,11 +166,19 @@ namespace FlashCard
             else
             {
                 // Session finished
+                TimeSpan timeSpent = DateTime.Now - _sessionStartTime;
+                var mostDifficultCard = _cardErrors.OrderByDescending(kvp => kvp.Value).FirstOrDefault().Key;
+                int perfectCardsCount = _deck.Cards.Count(c => !_cardErrors.ContainsKey(c) || _cardErrors[c] == 0);
+
                 var navigationParameter = new Dictionary<string, object>
                 {
                     { "correct", _correctCount },
                     { "total", _shuffledCards.Count },
-                    { "deckName", _deck.Name }
+                    { "deckName", _deck.Name },
+                    { "timeSpent", timeSpent.TotalSeconds },
+                    { "mostDifficultCardFront", mostDifficultCard?.Front ?? "Aucune" },
+                    { "perfectCardsCount", perfectCardsCount },
+                    { "originalTotalCount", _deck.Cards.Count }
                 };
                 await Shell.Current.GoToAsync("LearnResultPage", navigationParameter);
             }
