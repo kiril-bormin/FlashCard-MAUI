@@ -110,6 +110,7 @@ namespace FlashCard
         {
             await CardFrame.RotateYTo(90, 250, Easing.CubicIn);
 
+
             _isShowingBack = !_isShowingBack;
             var card = _shuffledCards[_currentIndex];
 
@@ -139,6 +140,10 @@ namespace FlashCard
 
         private async void OnWrongClicked(object sender, EventArgs e)
         {
+            // Ajouter la carte actuelle à la fin de la liste pour la revoir
+            var currentCard = _shuffledCards[_currentIndex];
+            _shuffledCards.Add(currentCard);
+
             await NextCard();
         }
 

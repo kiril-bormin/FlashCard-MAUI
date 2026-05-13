@@ -19,6 +19,7 @@
                     <Editor x:Name="QuestionEditor"
                             HeightRequest="80"
                             FontSize="18"
+                            MaxLength="255"
                             AutoSize="TextChanges" />
                 </Frame>
             </VerticalStackLayout>
@@ -35,6 +36,7 @@
                     <Editor x:Name="AnswerEditor"
                             HeightRequest="80"
                             FontSize="18"
+                            MaxLength="255"
                             AutoSize="TextChanges" />
                 </Frame>
             </VerticalStackLayout>
