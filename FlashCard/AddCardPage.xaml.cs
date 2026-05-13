@@ -14,6 +14,8 @@ public partial class AddCardPage : ContentPage, IQueryAttributable
         InitializeComponent();
     }
 
+    private Card _cardToEdit;
+
     public void ApplyQueryAttributes(IDictionary<string, object> query)
     {
         if (query.TryGetValue("deck", out object deckObj) && deckObj is Deck deck)
@@ -31,6 +33,14 @@ public partial class AddCardPage : ContentPage, IQueryAttributable
         {
             _decks = decks;
         }
+
+        if (query.TryGetValue("card", out object cardObj) && cardObj is Card card)
+        {
+            _cardToEdit = card;
+            Title = "Modifier la carte";
+            QuestionEditor.Text = _cardToEdit.Front;
+            AnswerEditor.Text = _cardToEdit.Back;
+        }
     }
 
     private async void OnSaveClicked(object sender, EventArgs e)
@@ -47,19 +57,27 @@ public partial class AddCardPage : ContentPage, IQueryAttributable
             return;
         }
 
-        if (_deck.Cards == null) _deck.Cards = new List<Card>();
-
-        _deck.Cards.Add(new Card
+        if (_cardToEdit != null)
         {
-            Front = QuestionEditor.Text.Trim(),
-            Back = AnswerEditor.Text.Trim()
-        });
+            _cardToEdit.Front = QuestionEditor.Text.Trim();
+            _cardToEdit.Back = AnswerEditor.Text.Trim();
+        }
+        else
+        {
+            if (_deck.Cards == null) _deck.Cards = new List<Card>();
 
-        _deck.CardCount = _deck.Cards.Count;
+            _deck.Cards.Add(new Card
+            {
+                Front = QuestionEditor.Text.Trim(),
+                Back = AnswerEditor.Text.Trim()
+            });
+
+            _deck.CardCount = _deck.Cards.Count;
+        }
 
         await _dataService.SaveDecksAsync(_decks);
 
-        await DisplayAlert("Succès", "Carte ajoutée !", "OK");
+        await DisplayAlert("Succès", _cardToEdit != null ? "Carte modifiée !" : "Carte ajoutée !", "OK");
         await Shell.Current.GoToAsync("..");
     }
 }

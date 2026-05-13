@@ -49,6 +49,12 @@ namespace FlashCard
             CardsCollectionView.ItemsSource = _deck?.Cards;
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            RefreshCards();
+        }
+
         private async void OnAddCardClicked(object sender, EventArgs e)
         {
             if (_deck == null) return;
@@ -58,6 +64,24 @@ namespace FlashCard
                 { "deck", _deck },
                 { "dataService", _dataService },
                 { "decks", _decks }
+            };
+
+            await Shell.Current.GoToAsync(nameof(AddCardPage), navigationParameter);
+        }
+
+        private async void OnEditCardClicked(object sender, EventArgs e)
+        {
+            Button? button = sender as Button;
+            Card? card = button?.CommandParameter as Card;
+
+            if (card == null || _deck == null) return;
+
+            var navigationParameter = new Dictionary<string, object>
+            {
+                { "deck", _deck },
+                { "dataService", _dataService },
+                { "decks", _decks },
+                { "card", card }
             };
 
             await Shell.Current.GoToAsync(nameof(AddCardPage), navigationParameter);
