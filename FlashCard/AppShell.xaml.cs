@@ -12,6 +12,7 @@
             Routing.RegisterRoute("LearnSelectionPage", typeof(LearnSelectionPage));
             Routing.RegisterRoute("LearnPage", typeof(LearnPage));
             Routing.RegisterRoute("LearnResultPage", typeof(LearnResultPage));
+
         }
     }
 }

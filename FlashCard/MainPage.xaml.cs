@@ -1,3 +1,4 @@
+using FlashCard.Models;
 using FlashCard.Services;
 
 namespace FlashCard
@@ -6,10 +7,12 @@ namespace FlashCard
     {
         int count = 0;
         private JsonDataService _dataService = new JsonDataService();
-
+        public List<Deck> MyDecks { get; set; }
         public MainPage()
         {
             InitializeComponent();
+            MyDecks = DeckSeeder.GetDefaultDecks();
+            BindingContext = this;
         }
 
         protected override async void OnAppearing()

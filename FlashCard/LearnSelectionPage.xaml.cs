@@ -17,7 +17,23 @@ namespace FlashCard
         protected override async void OnAppearing()
         {
             base.OnAppearing();
+
             _decks = await _dataService.LoadDecksAsync();
+
+            if (_decks == null || !_decks.Any())
+            {
+                _decks = DeckSeeder.GetDefaultDecks();
+                await _dataService.SaveDecksAsync(_decks);
+            }
+
+            foreach (var deck in _decks)
+            {
+                if (deck.Cards != null)
+                {
+                    deck.CardCount = deck.Cards.Count;
+                }
+            }
+
             DecksCollectionView.ItemsSource = _decks;
         }
 
@@ -26,7 +42,7 @@ namespace FlashCard
             var frame = (Frame)sender;
             var deck = (Deck)frame.BindingContext;
 
-            if (deck == null || deck.Cards.Count == 0)
+            if (deck == null || deck.Cards == null || deck.Cards.Count == 0)
             {
                 await DisplayAlert("Deck vide", "Ce deck ne contient pas de cartes.", "OK");
                 return;

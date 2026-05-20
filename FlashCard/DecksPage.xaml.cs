@@ -20,12 +20,31 @@ namespace FlashCard
         private async void LoadDecks()
         {
             _decks = await _dataService.LoadDecksAsync();
+
+          
+            if (_decks == null || !_decks.Any())
+            {
+                _decks = DeckSeeder.GetDefaultDecks();
+
+             
+                await _dataService.SaveDecksAsync(_decks);
+            }
+
+            foreach (var deck in _decks)
+            {
+                if (deck.Cards != null)
+                {
+                    deck.CardCount = deck.Cards.Count; 
+                }
+            }
+
             if (_decks.Any())
             {
                 _nextId = _decks.Max(d => d.Id) + 1;
             }
+
             RefreshView();
-            UpdateInfo($"Charg�: {_decks.Count} deck(s)");
+            UpdateInfo($"Chargé: {_decks.Count} deck(s)");
         }
 
         private void RefreshView()
