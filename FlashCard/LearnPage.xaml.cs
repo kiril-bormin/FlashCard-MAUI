@@ -39,6 +39,8 @@ namespace FlashCard
         private int _currentIndex = 0;
         private bool _isShowingBack = false;
         private int _correctCount = 0;
+        private int _doneCount = 0;
+        private int _totalOriginal = 0;
         private DateTime _lastShakeTime = DateTime.MinValue;
         private DateTime _sessionStartTime;
         private Dictionary<Card, int> _cardErrors = new();
@@ -109,6 +111,8 @@ namespace FlashCard
             _shuffledCards = _deck.Cards.OrderBy(x => Guid.NewGuid()).ToList();
             _currentIndex = 0;
             _correctCount = 0;
+            _doneCount = 0;
+            _totalOriginal = _deck.Cards.Count;
             _sessionStartTime = DateTime.Now;
             _cardErrors.Clear();
             
@@ -121,7 +125,7 @@ namespace FlashCard
             var card = _shuffledCards[_currentIndex];
             CardContentLabel.Text = card.Front;
             SideIndicatorLabel.Text = "(Appuyez pour voir le verso)";
-            ProgressLabel.Text = $"Carte {_currentIndex + 1} / {_shuffledCards.Count}";
+            ProgressLabel.Text = $"Carte {_doneCount + 1} / {_totalOriginal}";
             
             ActionButtons.IsVisible = false;
             InstructionLabel.IsVisible = true;
@@ -156,6 +160,7 @@ namespace FlashCard
         private async void OnCorrectClicked(object sender, EventArgs e)
         {
             _correctCount++;
+            _doneCount++;
             await NextCard();
         }
 
@@ -210,7 +215,7 @@ namespace FlashCard
                 var navigationParameter = new Dictionary<string, object>
                 {
                     { "correct", _correctCount },
-                    { "total", _shuffledCards.Count },
+                    { "total", _totalOriginal },
                     { "deckName", _deck.Name },
                     { "timeSpent", timeSpent.TotalSeconds },
                     { "mostDifficultCardFront", mostDifficultCard?.Front ?? "Aucune" },
