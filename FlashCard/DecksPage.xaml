@@ -4,7 +4,7 @@
              x:Class="FlashCard.DecksPage"
              Title="Mes Decks">
 
-    <Grid RowDefinitions="Auto,*,Auto" Padding="10">
+    <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="10">
 
         <!-- Header with add button -->
         <Grid Grid.Row="0"
@@ -21,8 +21,15 @@
                     TextColor="White" />
         </Grid>
 
+        <!-- Search bar -->
+        <SearchBar Grid.Row="1"
+                   x:Name="SearchBar"
+                   Placeholder="Rechercher un deck..."
+                   TextChanged="OnSearchTextChanged"
+                   Margin="0,0,0,6" />
+
         <!-- Decks list -->
-        <CollectionView Grid.Row="1"
+        <CollectionView Grid.Row="2"
                        x:Name="DecksCollectionView"
                        SelectionMode="None">
             <CollectionView.ItemTemplate>
@@ -117,7 +124,7 @@
         </CollectionView>
 
         <!-- Info bar -->
-        <Label Grid.Row="2"
+        <Label Grid.Row="3"
                x:Name="InfoLabel"
                Text="Prêt"
                FontSize="12"

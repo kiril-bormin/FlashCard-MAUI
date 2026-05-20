@@ -7,6 +7,7 @@ namespace FlashCard
     {
         private JsonDataService _dataService;
         private List<Deck> _decks;
+        private List<Deck> _filteredDecks;
         private int _nextId = 1;
 
         public DecksPage()
@@ -14,6 +15,7 @@ namespace FlashCard
             InitializeComponent();
             _dataService = new JsonDataService();
             _decks = new List<Deck>();
+            _filteredDecks = new List<Deck>();
             LoadDecks();
         }
 
@@ -49,8 +51,22 @@ namespace FlashCard
 
         private void RefreshView()
         {
+            string query = SearchBar?.Text?.Trim() ?? string.Empty;
+
+            _filteredDecks = string.IsNullOrEmpty(query)
+                ? new List<Deck>(_decks)
+                : _decks
+                    .Where(d => d.Name != null &&
+                                d.Name.Contains(query, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+
             DecksCollectionView.ItemsSource = null;
-            DecksCollectionView.ItemsSource = _decks;
+            DecksCollectionView.ItemsSource = _filteredDecks;
+        }
+
+        private void OnSearchTextChanged(object sender, TextChangedEventArgs e)
+        {
+            RefreshView();
         }
 
         private void UpdateInfo(string message)
