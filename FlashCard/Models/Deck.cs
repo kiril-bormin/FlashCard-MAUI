@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace FlashCard.Models
 {
-    public class Deck // définit le modèle d'une deck
+    public class Deck
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
@@ -21,7 +15,7 @@ namespace FlashCard.Models
 
         public override string ToString()
         {
-            return $"{Name} ({CardCount} cards)";
+            return $"{Name} ({CardCount} cartes)";
         }
     }
 }

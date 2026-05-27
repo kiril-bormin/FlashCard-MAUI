@@ -5,7 +5,6 @@ namespace FlashCard
 {
     public partial class MainPage : ContentPage
     {
-        int count = 0;
         private JsonDataService _dataService = new JsonDataService();
         public List<Deck> MyDecks { get; set; }
         public MainPage()
@@ -45,7 +44,6 @@ namespace FlashCard
         }
         private async void OnDecksClicked(object sender, EventArgs e)
         {
-            // Navigation vers la page "Mes Decks"
             await Shell.Current.GoToAsync("DecksPage");
         }
 
@@ -54,5 +52,4 @@ namespace FlashCard
             await Shell.Current.GoToAsync("LearnSelectionPage");
         }
     }
-
 }

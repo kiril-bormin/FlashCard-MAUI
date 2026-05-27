@@ -1,12 +1,12 @@
-﻿namespace FlashCard
+namespace FlashCard
 {
     public partial class App : Application
     {
         public App()
         {
-            InitializeComponent(); // cette méthode fusionne le c# et xaml 
+            InitializeComponent();
 
-            MainPage = new AppShell(); // AppShell gère la hiérarchie des pages 
+            MainPage = new AppShell();
         }
     }
 }

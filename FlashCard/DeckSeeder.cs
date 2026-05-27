@@ -1,9 +1,4 @@
-﻿using FlashCard.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using FlashCard.Models;
 
 namespace FlashCard;
 
@@ -36,10 +31,7 @@ public static class DeckSeeder
                     new Card { Front = "L'accéléromètre permet de détecter les mouvements sur quels axes ?", Back = "Il détecte l'accélération sur 3 axes tridimensionnels : X (latéral / gauche-droite), Y (vertical / haut-bas) et Z (avant-arrière)" },
                     new Card { Front = "En quoi les capteurs peuvent impacter particulièrement négativement l'autonomie d'un téléphone", Back = "Laisser les capteurs actifs (surtout avec une vitesse élevée comme Fastest) empêche le processeur du téléphone de se mettre en veille (Deep Sleep), ce qui draine énormément la batterie." }
                 }
-
-
             }
-
         };
     }
 }

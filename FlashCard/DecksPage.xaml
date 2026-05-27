@@ -6,7 +6,7 @@
 
     <Grid RowDefinitions="Auto,Auto,*,Auto" Padding="10">
 
-        <!-- Header with add button -->
+        <!-- En-tête avec bouton d'ajout -->
         <Grid Grid.Row="0"
               ColumnDefinitions="*, Auto"
               ColumnSpacing="10"
@@ -21,14 +21,14 @@
                     TextColor="White" />
         </Grid>
 
-        <!-- Search bar -->
+        <!-- Barre de recherche -->
         <SearchBar Grid.Row="1"
                    x:Name="SearchBar"
                    Placeholder="Rechercher un deck..."
                    TextChanged="OnSearchTextChanged"
                    Margin="0,0,0,6" />
 
-        <!-- Decks list -->
+        <!-- Liste des decks -->
         <CollectionView Grid.Row="2"
                        x:Name="DecksCollectionView"
                        SelectionMode="None">
@@ -44,7 +44,7 @@
                         </Frame.GestureRecognizers>
                         <Grid ColumnDefinitions="*,Auto,Auto,Auto">
 
-                            <!-- Deck info (normal mode) -->
+                            <!-- Infos du deck (mode lecture) -->
                             <StackLayout Grid.Column="0"
                             VerticalOptions="Center"
                             x:Name="DisplayStack">
@@ -59,7 +59,7 @@
                            TextColor="LightGray" />
                             </StackLayout>
 
-                            <!-- Edit mode (hidden by default) -->
+                            <!-- Mode édition (caché par défaut) -->
                             <HorizontalStackLayout Grid.Column="0"
                                       VerticalOptions="Center"
                                       IsVisible="False"
@@ -82,8 +82,7 @@
                            CommandParameter="{Binding .}" />
                             </HorizontalStackLayout>
 
-
-                            <!-- Edit button -->
+                            <!-- Bouton éditer -->
                             <Button Grid.Column="2"
                        Text="✏️"
                        FontSize="20"
@@ -92,7 +91,7 @@
                        CommandParameter="{Binding .}"
                        x:Name="EditButton" />
 
-                            <!-- Delete button -->
+                            <!-- Bouton supprimer -->
                             <Button Grid.Column="3"
                        Text="🗑️"
                        FontSize="20"
@@ -104,7 +103,7 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
 
-            <!-- Empty view -->
+            <!-- Vue vide -->
             <CollectionView.EmptyView>
                 <StackLayout HorizontalOptions="Center"
                             VerticalOptions="Center">
@@ -123,7 +122,7 @@
             </CollectionView.EmptyView>
         </CollectionView>
 
-        <!-- Info bar -->
+        <!-- Barre d'info -->
         <Label Grid.Row="3"
                x:Name="InfoLabel"
                Text="Prêt"

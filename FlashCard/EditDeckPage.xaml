@@ -19,6 +19,7 @@
             <Button 
             Text="Ajouter une nouvelle carte"
             FontSize="20"
+            BackgroundColor="#2196F3"
             Clicked="OnAddCardClicked" />
 
             <Label Text="Cartes du deck" FontSize="16" FontAttributes="Bold" Margin="0,20,0,0" />

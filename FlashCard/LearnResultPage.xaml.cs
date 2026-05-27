@@ -122,7 +122,6 @@ namespace FlashCard
         {
             if (_total == 0 || _originalTotalCount == 0) return;
 
-            // ScoreLabel.Text = $"{_correct} / {_total}";
             double memorizationPercentage = (double)_perfectCardsCount / _originalTotalCount * 100;
             PercentageLabel.Text = $"{memorizationPercentage:F0}% de mémorisation";
 

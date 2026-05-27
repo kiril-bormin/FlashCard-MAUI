@@ -16,7 +16,7 @@ namespace FlashCard
             InitializeComponent();
         }
 
-        // Receive navigation parameters
+        // Réception des paramètres de navigation
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
             if (query.TryGetValue("deck", out object? deckObj) && deckObj is Deck deck)
@@ -25,7 +25,7 @@ namespace FlashCard
                 _cardCount = deck.CardCount;
 
                 _isInitializing = true;
-                // Initialize fields
+                // Initialisation des champs
                 NameEntry.Text = deck.Name;
                 _isInitializing = false;
 

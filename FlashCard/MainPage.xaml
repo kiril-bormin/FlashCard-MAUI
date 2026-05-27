@@ -12,7 +12,6 @@
                 <Grid ColumnDefinitions="*,*" RowDefinitions="Auto,Auto" Margin="0,0,0,10" RowSpacing="10">
                     <Label Grid.Row="0" Grid.Column="0" Text="Apprendre :" HorizontalOptions="Center" FontSize="18" />
                     <Label Grid.Row="0" Grid.Column="1" Text="Appris :" HorizontalOptions="Center" FontSize="18"/>
-                    <!--à remplacer par des variables-->
                     <Label Grid.Row="1" Grid.Column="0" x:Name="ToLearnLabel" Text="0" HorizontalOptions="Center" FontSize="18" />
                     <Label Grid.Row="1" Grid.Column="1" x:Name="MasteredLabel" Text="0" HorizontalOptions="Center" FontSize="18"/>
                 </Grid>

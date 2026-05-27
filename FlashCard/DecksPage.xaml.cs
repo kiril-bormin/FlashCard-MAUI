@@ -23,12 +23,9 @@ namespace FlashCard
         {
             _decks = await _dataService.LoadDecksAsync();
 
-          
             if (_decks == null || !_decks.Any())
             {
                 _decks = DeckSeeder.GetDefaultDecks();
-
-             
                 await _dataService.SaveDecksAsync(_decks);
             }
 
@@ -36,7 +33,7 @@ namespace FlashCard
             {
                 if (deck.Cards != null)
                 {
-                    deck.CardCount = deck.Cards.Count; 
+                    deck.CardCount = deck.Cards.Count;
                 }
             }
 
@@ -74,7 +71,6 @@ namespace FlashCard
             InfoLabel.Text = $"{DateTime.Now:HH:mm:ss} - {message}";
         }
 
-        // --- NOUVELLES M�THODES � AJOUTER ---
 
         private async void OnAddDeckClicked(object sender, EventArgs e)
         {
@@ -87,14 +83,14 @@ namespace FlashCard
 
             NewDeckEntry.Text = string.Empty;
             RefreshView();
-            UpdateInfo($"Ajout�: {name}");
+            UpdateInfo($"Ajouté : {name}");
         }
 
         private async void OnSaveClicked(object sender, EventArgs e)
         {
             await _dataService.SaveDecksAsync(_decks);
-            RefreshView(); // Force le rafra�chissement pour repasser en mode lecture
-            UpdateInfo("Modifications enregistr�es");
+            RefreshView();
+            UpdateInfo("Modifications enregistrées");
         }
 
         private async void OnDeleteDeckClicked(object sender, EventArgs e)
@@ -104,7 +100,7 @@ namespace FlashCard
 
             if (deck == null) return;
 
-            // Confirm deletion
+            // Confirmation de suppression
             bool confirm = await DisplayAlert(
                 "Confirmation",
                 $"Voulez-vous vraiment supprimer '{deck.Name}' ?",
@@ -114,15 +110,13 @@ namespace FlashCard
 
             if (!confirm) return;
 
-            // Remove deck
+            // Suppression du deck
             _decks.Remove(deck);
             await _dataService.SaveDecksAsync(_decks);
 
             RefreshView();
-            UpdateInfo($"Supprim�: {deck.Name}");
+            UpdateInfo($"Supprimé : {deck.Name}");
         }
-
-        // --- M�THODES D'AFFICHAGE D�J� PR�SENTES ---
 
         private void OnEditDeckInlineClicked(object sender, EventArgs e)
         {
@@ -154,7 +148,6 @@ namespace FlashCard
 
             await Shell.Current.GoToAsync(nameof(EditDeckPage), navigationParameter);
         }
-    
 
         protected override void OnAppearing()
         {

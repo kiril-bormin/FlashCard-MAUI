@@ -115,7 +115,7 @@ namespace FlashCard
             _totalOriginal = _deck.Cards.Count;
             _sessionStartTime = DateTime.Now;
             _cardErrors.Clear();
-            
+
             ShowCard();
         }
 
@@ -126,7 +126,7 @@ namespace FlashCard
             CardContentLabel.Text = card.Front;
             SideIndicatorLabel.Text = "(Appuyez pour voir le verso)";
             ProgressLabel.Text = $"Carte {_doneCount + 1} / {_totalOriginal}";
-            
+
             ActionButtons.IsVisible = false;
             InstructionLabel.IsVisible = true;
         }
@@ -134,7 +134,6 @@ namespace FlashCard
         private async void OnCardTapped(object sender, EventArgs e)
         {
             await CardFrame.RotateYTo(90, 250, Easing.CubicIn);
-
 
             _isShowingBack = !_isShowingBack;
             var card = _shuffledCards[_currentIndex];
@@ -167,7 +166,7 @@ namespace FlashCard
         private async void OnWrongClicked(object sender, EventArgs e)
         {
             var currentCard = _shuffledCards[_currentIndex];
-            
+
             if (!_cardErrors.ContainsKey(currentCard))
                 _cardErrors[currentCard] = 0;
             _cardErrors[currentCard]++;
@@ -187,7 +186,7 @@ namespace FlashCard
             }
             else
             {
-                // Session finished
+                // Session terminée
                 CardContentLabel.Text = "Préparation...";
                 InstructionLabel.IsVisible = false;
                 ActionButtons.IsVisible = false;
@@ -198,7 +197,7 @@ namespace FlashCard
                 var mostDifficultCard = _cardErrors.OrderByDescending(kvp => kvp.Value).FirstOrDefault().Key;
                 int perfectCardsCount = _deck.Cards.Count(c => !_cardErrors.ContainsKey(c) || _cardErrors[c] == 0);
 
-                // Update IsMastered status
+                // Mettre à jour le statut de maîtrise des cartes
                 foreach (var card in _deck.Cards)
                 {
                     if (!_cardErrors.ContainsKey(card) || _cardErrors[card] == 0)
